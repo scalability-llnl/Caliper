@@ -24,9 +24,9 @@ variables:
 # This compiler is not considered reliable per issue in RAJA
 # https://github.com/LLNL/RAJA/pull/1712#issuecomment-2316335119
 # We allow failure and keep the cce 17.0.1 job below.
-cce_18_0_0:
+cce_18_0_1:
   variables:
-    SPEC: "${PROJECT_TIOGA_VARIANTS} %cce@=18.0.0 ${PROJECT_TIOGA_DEPS}"
+    SPEC: "${PROJECT_TIOGA_VARIANTS} %cce@=18.0.1 ${PROJECT_TIOGA_DEPS}"
   extends: .job_on_tioga
   allow_failure: true
 
