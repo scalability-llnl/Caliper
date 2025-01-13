@@ -206,10 +206,6 @@ then
     mkdir -p ${build_dir} && cd ${build_dir}
 
     timed_message "Building Caliper"
-    if [[ "${truehostname}" == "corona" || "${truehostname}" == "tioga" ]]
-    then
-        module unload rocm
-    fi
     if [[ "${truehostname}" == "lassen" || "${truehostname}" == "tioga" ]]
     then
         $cmake_exe \
