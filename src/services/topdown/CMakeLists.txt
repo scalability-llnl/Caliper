@@ -1,7 +1,8 @@
 set(CALIPER_TOPDOWN_SOURCES
   IntelTopdown.cpp
   TopdownCalculator.cpp
-  HaswellTopdown.cpp)
+  HaswellTopdown.cpp
+  SkylakeTopdown.cpp)
 
 
 if (WITH_PAPI_RDPMC)

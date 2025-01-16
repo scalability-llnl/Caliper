@@ -37,6 +37,7 @@ extern const char* builtin_umpire_option_specs;
 extern const char* builtin_kokkos_option_specs;
 
 extern const char* builtin_papi_hsw_option_specs;
+extern const char* builtin_papi_skl_option_specs;
 extern const char* builtin_papi_spr_option_specs;
 
 extern void add_submodule_controllers_and_services();
@@ -1380,7 +1381,7 @@ struct ConfigManager::ConfigManagerImpl {
     ConfigManagerImpl()
         : builtin_option_specs_list({
 #ifdef CALIPER_HAVE_GOTCHA
-                  builtin_gotcha_option_specs,
+              builtin_gotcha_option_specs,
 #endif
 #ifdef CALIPER_HAVE_MPI
                   builtin_mpi_option_specs,
@@ -1406,13 +1407,17 @@ struct ConfigManager::ConfigManagerImpl {
 #ifdef CALIPER_HAVE_KOKKOS
                   builtin_kokkos_option_specs,
 #endif
-              builtin_base_option_specs
+                  builtin_base_option_specs
           })
     {
 #ifdef CALIPER_HAVE_PAPI
 #ifdef CALIPER_HAVE_ARCH
-        if (std::string(CALIPER_HAVE_ARCH) == "sapphirerapids") {
+        std::string cali_arch = CALIPER_HAVE_ARCH;
+        Log(2).stream() << "ConfigManager: detected architecture " << cali_arch << std::endl;
+        if (cali_arch == "sapphirerapids") {
             builtin_option_specs_list.push_back(builtin_papi_spr_option_specs);
+        } else if (cali_arch == "skylake" || cali_arch == "skylake_avx512" || cali_arch == "cascadelake") {
+            builtin_option_specs_list.push_back(builtin_papi_skl_option_specs);
         } else {
             builtin_option_specs_list.push_back(builtin_papi_hsw_option_specs);
         }
